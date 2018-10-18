@@ -1,3 +1,5 @@
+from distutils.file_util import write_file
+
 print('Hello Huu Tran')
 
 abc = 123
@@ -57,8 +59,32 @@ print('The result was: {r:1.2f}'.format(r=float_number))
 name = 'Trần Bảo Hữu'
 print(f'Xin chào {name}')
 
-
 print(f'The result was: {float_number:1.2f}')
 
+# ghi file
 
-#
+# write_file('myfile.txt','hahahhihihi ghi file ne')
+
+
+# đọc file
+
+my_file = open('C:\\Users\VACTRHU005\Documents\GitHub\DemoPython\myfile.txt')
+
+print(my_file.read())
+
+# đọc lại read lần nữa sẽ trả ra rỗng
+print(my_file.read())
+
+# để sửa việc read lần 2 rỗng thì ta phải reset con trỏ đọc file về lại vị trí ban đầu
+my_file.seek(0)
+
+print(my_file.read())
+
+my_file.close()
+
+# read file không cần quan tâm close file
+
+with open('C:\\Users\VACTRHU005\Documents\GitHub\DemoPython\myfile.txt') as my_new_file:
+    contents = my_new_file.read()
+
+
