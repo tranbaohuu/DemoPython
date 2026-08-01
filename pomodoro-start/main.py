@@ -36,6 +36,8 @@ canvas.grid(row=1, column=1)
 # Buttons
 Button(window, text="Start", highlightthickness=0).grid(row=2, column=0)
 Button(window, text="Reset", highlightthickness=0).grid(row=2, column=2)
-# canvas.pack()
+
+# Add tick mark
+Label(window, text="✓", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 20, "bold")).grid(row=3, column=1)
 
 window.mainloop()
