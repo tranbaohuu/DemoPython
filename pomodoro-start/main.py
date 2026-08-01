@@ -11,11 +11,11 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 
-# ---------------------------- TIMER RESET ------------------------------- # 
+# ---------------------------- TIMER RESET ------------------------------- #
 
 # ---------------------------- TIMER MECHANISM ----------Ï--------------------- #
 
-# ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
+# ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -24,7 +24,9 @@ window.title("Pomodoro")
 window.configure(padx=100, pady=50, bg=YELLOW)
 
 # title
-tkinter.Label(window, text="Timer", font=(FONT_NAME, 40), bg=YELLOW, fg=GREEN).grid(row=0, column=1)
+label_timer = tkinter.Label(
+    window, text="Timer", font=(FONT_NAME, 40), bg=YELLOW, fg=GREEN
+).grid(row=0, column=1)
 
 # Pomodoro Timer Text
 canvas = Canvas(window, width=200, height=224, bg=YELLOW, highlightthickness=0)
@@ -34,10 +36,15 @@ canvas.create_text(103, 130, text="00:00", font=(FONT_NAME, 35, "bold"), fill="w
 canvas.grid(row=1, column=1)
 
 # Buttons
-Button(window, text="Start", highlightthickness=0).grid(row=2, column=0)
-Button(window, text="Reset", highlightthickness=0).grid(row=2, column=2)
+start_button = Button(window, text="Start", highlightthickness=0)
+start_button.grid(row=2, column=0)
+reset_button = Button(window, text="Reset", highlightthickness=0)
+reset_button.grid(row=2, column=2)
 
 # Add tick mark
-Label(window, text="✓", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 20, "bold")).grid(row=3, column=1)
+label_check_mark = Label(
+    window, text="✓", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 20, "bold")
+)
+label_check_mark.grid(row=3, column=1)
 
 window.mainloop()
