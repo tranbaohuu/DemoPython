@@ -8,9 +8,11 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 25
-SHORT_BREAK_MIN = 5
-LONG_BREAK_MIN = 20
+WORK_MIN = 1
+SHORT_BREAK_MIN = 2
+LONG_BREAK_MIN = 10
+
+reps = 0
 
 
 # ---------------------------- TIMER RESET ------------------------------- #
@@ -22,13 +24,30 @@ def reset_timer():
 
 # ---------------------------- TIMER MECHANISM ----------Ï--------------------- #
 def start_timer():
-    count_down(5)
+    global reps
+
+    work_sec = WORK_MIN
+    short_break_sec = SHORT_BREAK_MIN
+    long_break_sec = LONG_BREAK_MIN
+
+    if reps % 2 == 0:
+        label_timer.config(text="Work", fg=GREEN)
+        count_down(work_sec)
+    else:
+        if reps % 8 == 7:
+            label_timer.config(text="Long Break", fg=RED)
+            count_down(long_break_sec)
+        else:
+            label_timer.config(text="Break", fg=PINK)
+            count_down(short_break_sec)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 
 
 def count_down(count):
+    global reps
+
     # format the count to display in minutes and seconds with 02d format
     # itemconfig is used to change the text of the timer_text item in the canvas
     canvas.itemconfig(timer_text, text=f"{count // 60:02d}:{count % 60:02d}")
@@ -36,6 +55,18 @@ def count_down(count):
         # declare global variable timer to be used in reset_timer function
         global timer
         timer = window.after(1000, count_down, count - 1)
+    else:
+        next_phase()
+        # add tick mark for each completed work session
+        label_check_mark.config(text="✓" * (reps))
+
+
+def next_phase():
+    global reps
+
+    reps += 1
+    if reps < 8:
+        start_timer()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
