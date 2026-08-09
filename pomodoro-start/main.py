@@ -20,15 +20,20 @@ def reset_timer():
     canvas.itemconfig(timer_text, text="00:00")
     # cancel the timer global variable to stop the countdown
     window.after_cancel(timer)
+    label_timer.config(text="Timer", fg=GREEN)
+    label_check_mark.config(text="")
 
 
-# ---------------------------- TIMER MECHANISM ----------Ï--------------------- #
+# ---------------------------- TIMER MECHANISM ------------------------------- #
 def start_timer():
     global reps
 
     work_sec = WORK_MIN
     short_break_sec = SHORT_BREAK_MIN
     long_break_sec = LONG_BREAK_MIN
+
+    if reps == 0:
+        pass
 
     if reps % 2 == 0:
         label_timer.config(text="Work", fg=GREEN)
@@ -74,6 +79,7 @@ def next_phase():
 window = Tk()
 window.title("Pomodoro")
 window.configure(padx=100, pady=50, bg=YELLOW)
+
 
 # title
 label_timer = tkinter.Label(
