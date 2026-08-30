@@ -1,4 +1,5 @@
 from itertools import count
+import json
 from tkinter import *
 from tkinter import messagebox
 
@@ -86,12 +87,40 @@ def save():
             # Open the data file in append mode so new entries are added at the end.
             # Open data.txt in append mode ("a"), which adds new data to the end
             # without deleting existing entries. The file is created if it does not exist.
-            with open("data.txt", "a") as data_file:
-                # Write the website, email, and password to the file.
-                data_file.write(f"{website} | {email} | {password}\n")
-                # Clear the input fields after saving.
-                text_website.delete(0, END)
-                text_password.delete(0, END)
+
+            # txt file
+
+            # with open("data.txt", "a") as data_file:
+            #     # Write the website, email, and password to the file.
+            #     data_file.write(f"{website} | {email} | {password}\n")
+            #     # Clear the input fields after saving.
+            #     text_website.delete(0, END)
+            #     text_password.delete(0, END)
+
+            # json file
+            json_data = {"website": website, "email": email, "password": password}
+
+            try:
+                # we need open read mode to read the existing data from the file
+                # Nếu không đọc dạng read mà dạng a (append) thì data cứ bị thêm mới thay vì update
+                with open("data.json", "r") as data_file:
+                    saved_passwords = json.load(data_file)
+            except (FileNotFoundError, json.JSONDecodeError):
+                saved_passwords = []
+
+            for saved_password in saved_passwords:
+                if saved_password["website"] == website:
+                    saved_password.update(json_data)
+                    break
+            else:
+                saved_passwords.append(json_data)
+
+            with open("data.json", "w") as data_file:
+                json.dump(saved_passwords, data_file, indent=4, separators=(",", ": "))
+
+            # Clear the input fields after saving.
+            text_website.delete(0, END)
+            text_password.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------  ------------- #
