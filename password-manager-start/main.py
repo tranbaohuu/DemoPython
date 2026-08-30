@@ -164,7 +164,37 @@ button_generate.grid(row=3, column=2, pady=5)
 button_add = Button(
     text="Add", width=36, highlightthickness=0, bg="white", command=save
 )
+
+
+button_search = Button(
+    text="Search",
+    width=13,
+    highlightthickness=0,
+    bg="white",
+    command=lambda: search(text_website.get()),
+)
 button_add.grid(row=4, column=1, columnspan=2, pady=5)
+button_search.grid(row=1, column=2, pady=5)
+
+
+def search(website):
+    try:
+        with open("data.json", "r") as data_file:
+            saved_passwords = json.load(data_file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        messagebox.showinfo(title="Error", message="No data file found.")
+        return
+
+    for saved_password in saved_passwords:
+        if saved_password["website"] == website:
+            email = saved_password["email"]
+            password = saved_password["password"]
+            messagebox.showinfo(
+                title=website, message=f"Email: {email}\nPassword: {password}"
+            )
+            return
+
+    messagebox.showinfo(title="Error", message=f"No details for {website} exists.")
 
 
 window.mainloop()
