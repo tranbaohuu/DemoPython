@@ -7,7 +7,7 @@ window = tk.Tk()
 my_image = tk.PhotoImage(file="flash-card-project-start/images/card_front.png")
 
 window.title("Flash Card")
-window.config(padx=50, pady=50, bg=BACKGROUND_COLOR, width=800, height=526)
+window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
 
 canvas = tk.Canvas(
     window,
@@ -17,23 +17,39 @@ canvas = tk.Canvas(
     highlightthickness=0,
 )
 canvas.create_image(400, 263, image=my_image)
-canvas.grid(row=0, column=1, columnspan=3)
+canvas.create_text(400, 150, text="Title", fill="black", font=("Ariel", 40, "italic"))
+canvas.create_text(
+    400, 263, text="Subtitle", fill="black", font=("Ariel", 40, "italic")
+)
 
-label1 = tk.Label(
+
+canvas.config(bg=BACKGROUND_COLOR, highlightthickness=0)
+canvas.grid(row=0, column=0, columnspan=2)
+
+cross_image = tk.PhotoImage(file="flash-card-project-start/images/wrong.png")
+check_image = tk.PhotoImage(file="flash-card-project-start/images/right.png")
+
+unknow_button = tk.Button(
     window,
-    text="Flash Card",
+    image=cross_image,
+    text="Unknown",
     bg=BACKGROUND_COLOR,
-    font=("Ariel", 40, "italic"),
+    font=("Ariel", 20, "bold"),
     foreground="black",
-).grid(row=1, column=1)
+    highlightthickness=0,
+)
+unknow_button.grid(row=1, column=0)
 
-
-label2 = tk.Label(
+know_button = tk.Button(
     window,
-    text="Flash Card",
+    image=check_image,
+    text="Known",
     bg=BACKGROUND_COLOR,
-    font=("Ariel", 60, "bold"),
+    font=("Ariel", 20, "bold"),
     foreground="black",
-).grid(row=2, column=1)
+    highlightthickness=0,
+)
+know_button.grid(row=1, column=1)
+
 
 window.mainloop()
